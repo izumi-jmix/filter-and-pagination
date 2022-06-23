@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://employeeBrowse.caption"
+        focusComponent="employeesTable">
+    <data readOnly="true">
+        <collection id="employeesDc" class="org.izumi.jmix.fap.entity.Employee">
+            <fetchPlan extends="_base"/>
+            <loader id="employeesDl">
+                <query>
+                    <![CDATA[select e from Employee e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+
+    <dialogMode height="600" width="800"/>
+
+    <layout expand="employeesTable" spacing="true">
+        <filter id="filter" dataLoader="employeesDl" autoApply="true">
+            <properties include=".*"/>
+        </filter>
+
+        <groupTable id="employeesTable"
+                    width="100%"
+                    dataContainer="employeesDc">
+
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="generate" caption="msg://actions.generate.caption"/>
+                <action id="clear" caption="msg://actions.clear.caption"/>
+            </actions>
+
+            <columns>
+                <column id="firstName"/>
+                <column id="lastName"/>
+            </columns>
+
+            <buttonsPanel id="buttonsPanel" alwaysVisible="true">
+                <button id="createBtn" action="employeesTable.create"/>
+                <button id="editBtn" action="employeesTable.edit"/>
+                <button id="removeBtn" action="employeesTable.remove"/>
+                <button id="generateBtn" action="employeesTable.generate" stylename="friendly"/>
+                <button id="clearBtn" action="employeesTable.clear" stylename="danger"/>
+
+                <pagination id="pagination"
+                            itemsPerPageVisible="true"
+                            itemsPerPageOptions="10, 20, 50, 100, 500, 1000, 5000"
+                            itemsPerPageDefaultValue="10"
+                            css="float: right">
+                    <loaderProvider loaderId="employeesDl"/>
+                </pagination>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

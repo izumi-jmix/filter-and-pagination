@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+    <item screen="Employee.browse" caption="msg://org.izumi.jmix.fap.screen.employee/employeeBrowse.menu"/>
+    <item screen="Employee.correct-browse" caption="msg://org.izumi.jmix.fap.screen.employee/employeeCorrectBrowse.menu"/>
+</menu-config>
